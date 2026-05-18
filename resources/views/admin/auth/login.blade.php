@@ -1,0 +1,114 @@
+<!DOCTYPE html>
+<html lang="tr">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Admin Giriş</title>
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/css/bootstrap.min.css" rel="stylesheet">
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.11.3/font/bootstrap-icons.min.css" rel="stylesheet">
+    <style>
+        body {
+            min-height: 100vh;
+            background: linear-gradient(135deg, #1e293b 0%, #334155 100%);
+            display: flex; align-items: center; justify-content: center;
+            font-family: 'Segoe UI', sans-serif;
+        }
+        .login-card {
+            width: 100%; max-width: 420px;
+            background: #fff;
+            border-radius: 1rem;
+            box-shadow: 0 20px 60px rgba(0,0,0,0.3);
+            overflow: hidden;
+        }
+        .login-header {
+            background: linear-gradient(135deg, #4f46e5, #7c3aed);
+            padding: 2rem;
+            text-align: center;
+            color: #fff;
+        }
+        .login-header .icon {
+            font-size: 2.5rem;
+            background: rgba(255,255,255,0.2);
+            width: 4rem; height: 4rem;
+            border-radius: 50%;
+            display: inline-flex; align-items: center; justify-content: center;
+            margin-bottom: 0.75rem;
+        }
+        .login-body { padding: 2rem; }
+        .form-control:focus { border-color: #6366f1; box-shadow: 0 0 0 3px rgba(99,102,241,0.12); }
+        .btn-login {
+            background: linear-gradient(135deg, #4f46e5, #7c3aed);
+            border: none; color: #fff;
+            padding: 0.75rem;
+            font-weight: 600;
+            transition: opacity 0.2s;
+        }
+        .btn-login:hover { opacity: 0.92; color: #fff; }
+    </style>
+</head>
+<body>
+    <div class="login-card">
+        <div class="login-header">
+            <div class="icon"><i class="bi bi-shield-lock"></i></div>
+            <h4 class="mb-0 fw-bold">Admin Paneli</h4>
+            <p class="mb-0 opacity-75 small mt-1">Lütfen giriş yapın</p>
+        </div>
+        <div class="login-body">
+
+            @if(session('success'))
+                <div class="alert alert-success alert-sm py-2 mb-3">
+                    <i class="bi bi-check-circle me-1"></i>{{ session('success') }}
+                </div>
+            @endif
+            @if(session('error'))
+                <div class="alert alert-danger py-2 mb-3">
+                    <i class="bi bi-exclamation-triangle me-1"></i>{{ session('error') }}
+                </div>
+            @endif
+
+            <form action="{{ route('admin.login.post') }}" method="POST">
+                @csrf
+
+                <div class="mb-3">
+                    <label for="email" class="form-label fw-semibold small">E-posta Adresi</label>
+                    <div class="input-group">
+                        <span class="input-group-text"><i class="bi bi-envelope"></i></span>
+                        <input type="email" name="email" id="email"
+                               class="form-control @error('email') is-invalid @enderror"
+                               placeholder="admin@admin.com"
+                               value="{{ old('email') }}" autofocus>
+                        @error('email')
+                            <div class="invalid-feedback">{{ $message }}</div>
+                        @enderror
+                    </div>
+                </div>
+
+                <div class="mb-3">
+                    <label for="password" class="form-label fw-semibold small">Şifre</label>
+                    <div class="input-group">
+                        <span class="input-group-text"><i class="bi bi-lock"></i></span>
+                        <input type="password" name="password" id="password"
+                               class="form-control @error('password') is-invalid @enderror"
+                               placeholder="••••••••">
+                        @error('password')
+                            <div class="invalid-feedback">{{ $message }}</div>
+                        @enderror
+                    </div>
+                </div>
+
+                <div class="mb-4 d-flex align-items-center justify-content-between">
+                    <div class="form-check mb-0">
+                        <input type="checkbox" name="remember" id="remember" class="form-check-input">
+                        <label for="remember" class="form-check-label small">Beni hatırla</label>
+                    </div>
+                </div>
+
+                <button type="submit" class="btn btn-login w-100 rounded-3">
+                    <i class="bi bi-box-arrow-in-right me-2"></i>Giriş Yap
+                </button>
+            </form>
+        </div>
+    </div>
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/js/bootstrap.bundle.min.js"></script>
+</body>
+</html>
