@@ -13,8 +13,8 @@ class ProductSeeder extends Seeder
     {
         // Admin kullanıcı
         $user = User::firstOrCreate(
-            ['email' => 'admin@admin.com'],
-            ['name' => 'Admin', 'password' => bcrypt('password')]
+            ['email' => 'bertan@gmail.com'],
+            ['name' => 'Bertan', 'password' => bcrypt('bertan')]
         );
 
         // Kategoriler
