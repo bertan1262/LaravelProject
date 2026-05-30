@@ -52,5 +52,24 @@ Route::prefix('admin')->name('admin.')->group(function () {
             Route::put('/{category}',     [AdminCategoryController::class, 'update']) ->name('update');
             Route::delete('/{category}',  [AdminCategoryController::class, 'destroy'])->name('destroy');
         });
+
+        // Ekstra Sayfalar (Kullanıcılar, İstatistikler, Ayarlar)
+        Route::get('/users', function () {
+            $users = \App\Models\User::all();
+            return view('admin.users', compact('users'));
+        })->name('users');
+
+        Route::get('/stats', function () {
+            $stats = [
+                'users' => \App\Models\User::count(),
+                'products' => \App\Models\Product::count(),
+                'categories' => \App\Models\Category::count()
+            ];
+            return view('admin.stats', compact('stats'));
+        })->name('stats');
+
+        Route::get('/settings', function () {
+            return view('admin.settings');
+        })->name('settings');
     });
 });
