@@ -31,16 +31,16 @@
        class="nav-link {{ request()->routeIs('admin.category.*') ? 'active' : '' }}">
         <i class="bi bi-grid"></i> Kategoriler
     </a>
-    <a href="#" class="nav-link">
+    <a href="{{ route('admin.users') }}" class="nav-link {{ request()->routeIs('admin.users') ? 'active' : '' }}">
         <i class="bi bi-people"></i> Kullanıcılar
     </a>
-    <a href="#" class="nav-link">
+    <a href="{{ route('admin.stats') }}" class="nav-link {{ request()->routeIs('admin.stats') ? 'active' : '' }}">
         <i class="bi bi-bar-chart"></i> İstatistikler
     </a>
 
     <div class="mt-auto">
         <div class="sidebar-section">Sistem</div>
-        <a href="#" class="nav-link">
+        <a href="{{ route('admin.settings') }}" class="nav-link {{ request()->routeIs('admin.settings') ? 'active' : '' }}">
             <i class="bi bi-gear"></i> Ayarlar
         </a>
     </div>
