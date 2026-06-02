@@ -31,8 +31,8 @@
 
 @push('scripts')
 {{-- CKEditor 5 entegrasyonu --}}
-<script src="https://cdn.ckeditor.com/ckeditor5/43.3.1/ckeditor5.umd.js"></script>
-<link rel="stylesheet" href="https://cdn.ckeditor.com/ckeditor5/43.3.1/ckeditor5.css">
+<script src="{{ asset('vendor/ckeditor/ckeditor5.umd.js') }}"></script>
+<link rel="stylesheet" href="{{ asset('vendor/ckeditor/ckeditor5.css') }}">
 <script>
     const { ClassicEditor, Essentials, Bold, Italic, Underline, Strikethrough,
             Paragraph, Heading, Link, BulletedList, NumberedList, BlockQuote,
