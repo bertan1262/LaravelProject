@@ -5,7 +5,10 @@ use App\Http\Controllers\Admin\AdminAuthController;
 use App\Http\Controllers\Admin\AdminDashboardController;
 use App\Http\Controllers\Admin\AdminProductController;
 use App\Http\Controllers\Admin\AdminCategoryController;
+use App\Http\Controllers\Admin\AdminOrderController;
 use App\Http\Controllers\ShopController;
+use App\Http\Controllers\Shop\CartController;
+use App\Http\Controllers\Shop\CheckoutController;
 
 /* =====================================================
    FRONTEND — Ziyaretçi Sayfaları
@@ -14,6 +17,17 @@ Route::get('/',                       [ShopController::class, 'index'])    ->nam
 Route::get('/urunler',                [ShopController::class, 'products']) ->name('shop.products');
 Route::get('/urun/{product}',         [ShopController::class, 'show'])     ->name('shop.show');
 Route::get('/kategori/{category}',    [ShopController::class, 'category']) ->name('shop.category');
+
+// Sepet Rotaları
+Route::get('/sepet',                 [CartController::class, 'index'])  ->name('shop.cart.index');
+Route::post('/sepet/ekle/{product}', [CartController::class, 'add'])    ->name('shop.cart.add');
+Route::post('/sepet/guncelle',       [CartController::class, 'update']) ->name('shop.cart.update');
+Route::post('/sepet/sil',            [CartController::class, 'remove']) ->name('shop.cart.remove');
+
+// Ödeme Rotaları
+Route::get('/odeme',                 [CheckoutController::class, 'index'])   ->name('shop.checkout.index');
+Route::post('/odeme',                [CheckoutController::class, 'process']) ->name('shop.checkout.process');
+Route::get('/siparis-basarili',      [CheckoutController::class, 'success']) ->name('shop.checkout.success');
 
 /* =====================================================
    ADMIN — Giriş (Auth) — Korumasız
@@ -51,6 +65,13 @@ Route::prefix('admin')->name('admin.')->group(function () {
             Route::get('/{category}/edit',[AdminCategoryController::class, 'edit'])   ->name('edit');
             Route::put('/{category}',     [AdminCategoryController::class, 'update']) ->name('update');
             Route::delete('/{category}',  [AdminCategoryController::class, 'destroy'])->name('destroy');
+        });
+
+        // Sipariş Rotaları — /admin/order
+        Route::prefix('order')->name('order.')->group(function () {
+            Route::get('/', [AdminOrderController::class, 'index'])->name('index');
+            Route::get('/{order}', [AdminOrderController::class, 'show'])->name('show');
+            Route::put('/{order}/status', [AdminOrderController::class, 'updateStatus'])->name('update');
         });
 
         // Ekstra Sayfalar (Kullanıcılar, İstatistikler, Ayarlar)

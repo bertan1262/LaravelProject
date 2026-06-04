@@ -22,6 +22,11 @@
 
     <div class="sidebar-section">Menü</div>
 
+    <a href="{{ route('admin.order.index') }}"
+       class="nav-link {{ request()->routeIs('admin.order.*') ? 'active' : '' }}">
+        <i class="bi bi-cart-check"></i> Siparişler
+    </a>
+
     <a href="{{ route('admin.product.index') }}"
        class="nav-link {{ request()->routeIs('admin.product.*') ? 'active' : '' }}">
         <i class="bi bi-box-seam"></i> Ürünler
