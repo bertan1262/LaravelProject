@@ -35,6 +35,23 @@
                 </button>
             </form>
 
+            @php
+                $cartCount = 0;
+                if(session('cart')) {
+                    foreach(session('cart') as $item) {
+                        $cartCount += $item['quantity'];
+                    }
+                }
+            @endphp
+            <a href="{{ route('shop.cart.index') }}" class="btn btn-outline-light btn-sm me-2 position-relative">
+                <i class="bi bi-cart3"></i> Sepet
+                @if($cartCount > 0)
+                <span class="position-absolute top-0 start-100 translate-middle badge rounded-pill bg-danger">
+                    {{ $cartCount }}
+                </span>
+                @endif
+            </a>
+
             <a href="{{ route('admin.dashboard') }}" class="btn btn-outline-light btn-sm">
                 <i class="bi bi-grid me-1"></i>Admin
             </a>

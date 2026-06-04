@@ -79,9 +79,17 @@
             @endif
 
             <hr>
-            <a href="{{ route('shop.products') }}" class="btn btn-outline-secondary">
-                <i class="bi bi-arrow-left me-1"></i> Ürünlere Dön
-            </a>
+            <div class="d-flex gap-2 mt-4">
+                <form action="{{ route('shop.cart.add', $product) }}" method="POST">
+                    @csrf
+                    <button type="submit" class="btn btn-primary px-4 fw-bold shadow-sm" {{ $product->stock <= 0 ? 'disabled' : '' }}>
+                        <i class="bi bi-cart-plus me-1"></i> Sepete Ekle
+                    </button>
+                </form>
+                <a href="{{ route('shop.products') }}" class="btn btn-outline-secondary px-4">
+                    <i class="bi bi-arrow-left me-1"></i> Geri Dön
+                </a>
+            </div>
         </div>
     </div>
 
