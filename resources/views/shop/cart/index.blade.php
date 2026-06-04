@@ -12,7 +12,7 @@
     @if(count($cart) > 0)
         <div class="row">
             <div class="col-lg-8">
-                <div class="card shadow-sm border-0 mb-4">
+    <div class="card border-0 mb-4" style="background: var(--bg-surface); box-shadow: var(--card-shadow);">
                     <div class="card-body p-0">
                         <div class="table-responsive">
                             <table class="table table-borderless align-middle mb-0">
@@ -30,7 +30,11 @@
                                     <tr class="border-bottom">
                                         <td class="ps-4">
                                             <div class="d-flex align-items-center">
-                                                <img src="{{ asset('storage/' . $details['image']) }}" alt="{{ $details['name'] }}" style="width: 50px; height: 50px; object-fit: cover;" class="rounded me-3">
+                                                @if($details['image'])
+                                                    <img src="{{ asset('storage/' . $details['image']) }}" alt="{{ $details['name'] }}" style="width: 50px; height: 50px; object-fit: cover;" class="rounded me-3">
+                                                @else
+                                                    <div class="rounded me-3 d-flex align-items-center justify-content-center bg-body-secondary" style="width:50px;height:50px;font-size:1.5rem;">🛍️</div>
+                                                @endif
                                                 <h6 class="mb-0">{{ $details['name'] }}</h6>
                                             </div>
                                         </td>
@@ -59,7 +63,7 @@
                 </div>
             </div>
             <div class="col-lg-4">
-                <div class="card shadow-sm border-0">
+            <div class="card border-0" style="background: var(--bg-surface); box-shadow: var(--card-shadow);">
                     <div class="card-body p-4">
                         <h5 class="card-title fw-bold mb-4">Sipariş Özeti</h5>
                         <div class="d-flex justify-content-between mb-3">
