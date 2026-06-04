@@ -6,47 +6,9 @@
     <title>Admin Giriş</title>
     <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/css/bootstrap.min.css" rel="stylesheet">
     <link href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.11.3/font/bootstrap-icons.min.css" rel="stylesheet">
-    <style>
-        body {
-            min-height: 100vh;
-            background: linear-gradient(135deg, #1e293b 0%, #334155 100%);
-            display: flex; align-items: center; justify-content: center;
-            font-family: 'Segoe UI', sans-serif;
-        }
-        .login-card {
-            width: 100%; max-width: 420px;
-            background: #fff;
-            border-radius: 1rem;
-            box-shadow: 0 20px 60px rgba(0,0,0,0.3);
-            overflow: hidden;
-        }
-        .login-header {
-            background: linear-gradient(135deg, #4f46e5, #7c3aed);
-            padding: 2rem;
-            text-align: center;
-            color: #fff;
-        }
-        .login-header .icon {
-            font-size: 2.5rem;
-            background: rgba(255,255,255,0.2);
-            width: 4rem; height: 4rem;
-            border-radius: 50%;
-            display: inline-flex; align-items: center; justify-content: center;
-            margin-bottom: 0.75rem;
-        }
-        .login-body { padding: 2rem; }
-        .form-control:focus { border-color: #6366f1; box-shadow: 0 0 0 3px rgba(99,102,241,0.12); }
-        .btn-login {
-            background: linear-gradient(135deg, #4f46e5, #7c3aed);
-            border: none; color: #fff;
-            padding: 0.75rem;
-            font-weight: 600;
-            transition: opacity 0.2s;
-        }
-        .btn-login:hover { opacity: 0.92; color: #fff; }
-    </style>
+    <link href="{{ asset('css/admin.css') }}" rel="stylesheet">
 </head>
-<body>
+<body class="login-wrapper">
     <div class="login-card">
         <div class="login-header">
             <div class="icon"><i class="bi bi-shield-lock"></i></div>
@@ -110,5 +72,6 @@
         </div>
     </div>
     <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/js/bootstrap.bundle.min.js"></script>
+    <script src="{{ asset('js/app.js') }}"></script>
 </body>
 </html>
