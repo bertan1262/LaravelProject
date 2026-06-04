@@ -3,65 +3,66 @@
 
 @section('content')
 
-{{-- Hero --}}
-<div style="background: linear-gradient(135deg,#4f46e5,#7c3aed); color:#fff; padding: 4rem 0;">
-    <div class="container text-center">
-        <h1 class="display-5 fw-bold mb-3">Hoş Geldiniz! 🛍️</h1>
-        <p class="lead opacity-75 mb-4">En yeni ürünleri keşfedin, indirimli fırsatları kaçırmayın.</p>
-        <a href="{{ route('shop.products') }}" class="btn btn-light btn-lg fw-bold px-5">
-            Tüm Ürünlere Bak <i class="bi bi-arrow-right ms-2"></i>
-        </a>
+{{-- Premium Hero Section --}}
+<div class="hero-wrapper">
+    <div class="hero-bg-shapes">
+        <div class="hero-shape hero-shape-1"></div>
+        <div class="hero-shape hero-shape-2"></div>
     </div>
-</div>
-
-{{-- Kategoriler --}}
-@if($categories->count())
-<div class="container my-5">
-    <h2 class="fw-bold mb-4">Kategoriler</h2>
-    <div class="row g-3">
-        @foreach($categories as $cat)
-        <div class="col-6 col-sm-4 col-md-3 col-lg-2">
-            <a href="{{ route('shop.category', $cat) }}" class="text-decoration-none">
-                <div class="card text-center p-3 border h-100" style="border-radius:0.75rem; transition: all 0.2s;"
-                     onmouseover="this.style.borderColor='#6366f1'; this.style.background='#f5f3ff';"
-                     onmouseout="this.style.borderColor=''; this.style.background='';">
-                    <i class="bi bi-grid-fill text-primary mb-2" style="font-size:1.75rem;"></i>
-                    <div class="fw-semibold small">{{ $cat->name }}</div>
-                    <div class="text-muted" style="font-size:0.72rem;">{{ $cat->products_count }} ürün</div>
-                </div>
+    
+    <div class="container text-center position-relative z-1 u-animate-slide-up">
+        <h1 class="display-3 fw-bold mb-4">Geleceğin <span class="text-primary">Alışveriş</span> Deneyimi</h1>
+        <p class="lead text-muted mb-5 mx-auto" style="max-width: 650px;">En son teknoloji ürünleri, şık tasarımlar ve benzersiz fırsatlar. İhtiyacınız olan her şey tek bir yerde, kusursuz bir deneyimle.</p>
+        
+        <div class="d-flex justify-content-center gap-3">
+            <a href="{{ route('shop.products') }}" class="btn btn-primary btn-lg rounded-pill px-5 fw-bold">
+                Koleksiyonu Keşfet <i class="bi bi-arrow-right ms-2"></i>
+            </a>
+            <a href="#categories" class="btn btn-outline-secondary btn-lg rounded-pill px-4 fw-medium">
+                Kategoriler <i class="bi bi-chevron-down ms-2"></i>
             </a>
         </div>
-        @endforeach
     </div>
 </div>
-@endif
+
+
 
 {{-- Öne Çıkan Ürünler --}}
-<div class="container mb-5">
-    <div class="d-flex justify-content-between align-items-center mb-4">
-        <h2 class="fw-bold mb-0">Yeni Ürünler</h2>
-        <a href="{{ route('shop.products') }}" class="btn btn-outline-primary btn-sm">Tümünü Gör</a>
+<div class="container mb-5 mt-5 pt-4">
+    <div class="d-flex justify-content-between align-items-end mb-4">
+        <div>
+            <h2 class="fw-bold mb-1">Yeni Gelenler</h2>
+            <p class="text-muted mb-0">En son eklenen ürünlerimizi kaçırmayın.</p>
+        </div>
+        <a href="{{ route('shop.products') }}" class="btn btn-outline-primary rounded-pill px-4 fw-medium d-none d-sm-inline-flex">Tümünü Gör</a>
     </div>
 
     @if($featured->isEmpty())
-        <div class="text-center py-5 text-muted">
-            <i class="bi bi-inbox" style="font-size:3rem;"></i>
-            <p class="mt-3">Henüz aktif ürün bulunmuyor.</p>
+        <div class="text-center py-5 text-muted border rounded-4 border-dashed">
+            <div class="brand-icon-wrapper mx-auto mb-3" style="width:64px;height:64px;font-size:2rem;background:rgba(99,102,241,0.1);color:var(--primary-color);">
+                <i class="bi bi-inbox"></i>
+            </div>
+            <h5 class="fw-bold">Henüz aktif ürün bulunmuyor.</h5>
+            <p class="mb-0">Daha sonra tekrar kontrol edin.</p>
         </div>
     @else
         <div class="row g-4">
             @foreach($featured as $product)
             <div class="col-sm-6 col-md-4 col-lg-3">
                 <a href="{{ route('shop.show', $product) }}" class="text-decoration-none">
-                    <div class="card product-card h-100">
-                        @if($product->image)
-                            <img src="{{ asset('storage/'.$product->image) }}" alt="{{ $product->title }}" class="card-img-top">
-                        @else
-                            <div class="d-flex align-items-center justify-content-center bg-light" style="height:200px; font-size:3rem;">🛍️</div>
-                        @endif
-                        <div class="card-body">
-                            <p class="text-muted small mb-1">{{ $product->category?->name }}</p>
-                            <h6 class="fw-bold text-dark mb-2">{{ Str::limit($product->title, 45) }}</h6>
+                    <div class="product-card h-100">
+                        <div class="product-card-img-wrapper">
+                            @if($product->image)
+                                <img src="{{ asset('storage/'.$product->image) }}" alt="{{ $product->title }}">
+                            @else
+                                <div class="d-flex align-items-center justify-content-center bg-light" style="height:250px; font-size:4rem; color: #cbd5e1;">
+                                    <i class="bi bi-bag"></i>
+                                </div>
+                            @endif
+                        </div>
+                        <div class="card-body p-4">
+                            <p class="text-muted small mb-2 text-uppercase fw-semibold" style="letter-spacing: 1px; font-size: 0.7rem;">{{ $product->category?->name }}</p>
+                            <h5 class="fw-bold mb-3 text-body">{{ Str::limit($product->title, 40) }}</h5>
                             <div class="d-flex align-items-center gap-2">
                                 <span class="price-badge">
                                     @if($product->discount > 0)
@@ -79,6 +80,9 @@
                 </a>
             </div>
             @endforeach
+        </div>
+        <div class="text-center mt-4 d-sm-none">
+             <a href="{{ route('shop.products') }}" class="btn btn-outline-primary rounded-pill px-4 fw-medium w-100">Tümünü Gör</a>
         </div>
     @endif
 </div>
