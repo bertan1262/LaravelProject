@@ -43,7 +43,7 @@
 
                         <h5 class="fw-bold mb-3"><i class="bi bi-credit-card"></i> Kredi Kartı Bilgileri <span class="badge bg-secondary ms-2 text-wrap" style="font-size:0.7rem; font-weight:normal">(Ödev İçin Simülasyon)</span></h5>
                         
-                        <div class="p-3 bg-light rounded border mb-4">
+                        <div class="p-3 rounded border mb-4" style="background: var(--bg-body);">
                             <div class="row g-3">
                                 <div class="col-12">
                                     <label class="form-label">Kart Üzerindeki İsim</label>
