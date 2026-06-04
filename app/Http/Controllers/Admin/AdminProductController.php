@@ -57,8 +57,8 @@ class AdminProductController extends Controller
             $data['image'] = $request->file('image')->store('products', 'public');
         }
 
-        // Geçici olarak user_id = 1
-        $data['user_id'] = 1;
+        // Giriş yapan admin kullanıcısının ID'sini ata
+        $data['user_id'] = auth()->id() ?? 1;
 
         Product::create($data);
 

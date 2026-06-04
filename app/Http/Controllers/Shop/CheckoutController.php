@@ -25,13 +25,17 @@ class CheckoutController extends Controller
     public function process(Request $request)
     {
         $request->validate([
-            'customer_name' => 'required',
-            'customer_email' => 'required|email',
-            'shipping_address' => 'required',
-            'card_name' => 'required',
-            'card_number' => 'required',
-            'card_expiry' => 'required',
-            'card_cvc' => 'required'
+            'customer_name'    => 'required|string|max:255',
+            'customer_email'   => 'required|email|max:255',
+            'shipping_address' => 'required|string|max:1000',
+            'card_name'        => 'required|string|max:255',
+            'card_number'      => ['required', 'regex:/^\d{4}\s?\d{4}\s?\d{4}\s?\d{4}$/'],
+            'card_expiry'      => ['required', 'regex:/^(0[1-9]|1[0-2])\/\d{2}$/'],
+            'card_cvc'         => ['required', 'regex:/^\d{3,4}$/'],
+        ], [
+            'card_number.regex'  => 'Kart numarası 16 haneli olmalıdır (örn: 4111 1111 1111 1111).',
+            'card_expiry.regex'  => 'Son kullanma tarihi AA/YY formatında olmalıdır (örn: 12/26).',
+            'card_cvc.regex'     => 'CVC 3 veya 4 haneli olmalıdır.',
         ]);
 
         $cart = session()->get('cart', []);

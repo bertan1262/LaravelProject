@@ -7,7 +7,7 @@
 
     <div class="row">
         <div class="col-lg-8 mb-4">
-            <div class="card shadow-sm border-0">
+    <div class="card border-0" style="background: var(--bg-surface); box-shadow: var(--card-shadow);">
                 <div class="card-body p-4">
                     
                     @if($errors->any())
@@ -73,14 +73,18 @@
         </div>
 
         <div class="col-lg-4">
-            <div class="card shadow-sm border-0">
+            <div class="card border-0" style="background: var(--bg-surface); box-shadow: var(--card-shadow);">
                 <div class="card-body p-4">
                     <h5 class="card-title fw-bold mb-4">Sipariş Özeti</h5>
                     <div class="order-items mb-3" style="max-height: 300px; overflow-y: auto;">
                         @foreach($cart as $details)
                             <div class="d-flex justify-content-between align-items-center mb-3 pb-3 border-bottom">
-                                <div class="d-flex align-items-center gap-2">
-                                    <img src="{{ asset('storage/' . $details['image']) }}" style="width: 40px; height: 40px; object-fit: cover;" class="rounded">
+                            <div class="d-flex align-items-center gap-2">
+                                    @if($details['image'])
+                                        <img src="{{ asset('storage/' . $details['image']) }}" style="width: 40px; height: 40px; object-fit: cover;" class="rounded">
+                                    @else
+                                        <div class="rounded d-flex align-items-center justify-content-center bg-body-secondary" style="width:40px;height:40px;font-size:1.2rem;">🛍️</div>
+                                    @endif
                                     <div>
                                         <h6 class="mb-0 small fw-bold">{{ Str::limit($details['name'], 25) }}</h6>
                                         <small class="text-muted">{{ $details['quantity'] }} adet</small>

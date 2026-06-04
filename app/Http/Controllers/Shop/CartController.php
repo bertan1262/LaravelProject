@@ -24,26 +24,36 @@ class CartController extends Controller
         if(isset($cart[$product->id])) {
             $cart[$product->id]['quantity']++;
         } else {
+            // İndirimli fiyat varsa onu kullan
+            $price = $product->discount > 0 ? $product->discounted_price : $product->price;
             $cart[$product->id] = [
-                'name' => $product->title,
+                'name'     => $product->title,
                 'quantity' => 1,
-                'price' => $product->price,
-                'image' => $product->image
+                'price'    => $price,
+                'image'    => $product->image ?? null,
             ];
         }
         session()->put('cart', $cart);
-        
+
         return redirect()->back()->with('success', 'Ürün sepete eklendi!');
     }
 
     public function update(Request $request)
     {
-        if($request->id && $request->quantity) {
-            $cart = session()->get('cart');
-            $cart[$request->id]["quantity"] = $request->quantity;
+        $cart = session()->get('cart', []);
+        if ($request->id && isset($cart[$request->id])) {
+            $qty = (int) $request->quantity;
+            if ($qty < 1) {
+                // 0 veya negatif adet girilirse ürünü sil
+                unset($cart[$request->id]);
+                session()->put('cart', $cart);
+                return redirect()->back()->with('success', 'Ürün sepetten çıkarıldı.');
+            }
+            $cart[$request->id]['quantity'] = $qty;
             session()->put('cart', $cart);
-            return redirect()->back()->with('success', 'Sepet güncellendi');
+            return redirect()->back()->with('success', 'Sepet güncellendi.');
         }
+        return redirect()->back();
     }
 
     public function remove(Request $request)
