@@ -8,7 +8,7 @@
 <div class="row g-3 mb-4">
 
     <div class="col-sm-6 col-xl-3">
-        <div class="admin-card p-4 d-flex align-items-center gap-3">
+        <div class="card shadow-sm border-0 p-4 d-flex align-items-center gap-3">
             <div class="rounded-3 p-3 bg-primary bg-opacity-10">
                 <i class="bi bi-box-seam text-primary fs-4"></i>
             </div>
@@ -20,7 +20,7 @@
     </div>
 
     <div class="col-sm-6 col-xl-3">
-        <div class="admin-card p-4 d-flex align-items-center gap-3">
+        <div class="card shadow-sm border-0 p-4 d-flex align-items-center gap-3">
             <div class="rounded-3 p-3 bg-success bg-opacity-10">
                 <i class="bi bi-check-circle text-success fs-4"></i>
             </div>
@@ -32,7 +32,7 @@
     </div>
 
     <div class="col-sm-6 col-xl-3">
-        <div class="admin-card p-4 d-flex align-items-center gap-3">
+        <div class="card shadow-sm border-0 p-4 d-flex align-items-center gap-3">
             <div class="rounded-3 p-3 bg-info bg-opacity-10">
                 <i class="bi bi-grid text-info fs-4"></i>
             </div>
@@ -44,7 +44,7 @@
     </div>
 
     <div class="col-sm-6 col-xl-3">
-        <div class="admin-card p-4 d-flex align-items-center gap-3">
+        <div class="card shadow-sm border-0 p-4 d-flex align-items-center gap-3">
             <div class="rounded-3 p-3 bg-warning bg-opacity-10">
                 <i class="bi bi-exclamation-triangle text-warning fs-4"></i>
             </div>
@@ -61,7 +61,7 @@
 
     {{-- Son Eklenen Ürünler --}}
     <div class="col-lg-7">
-        <div class="admin-card">
+        <div class="card shadow-sm border-0">
             <div class="card-header d-flex justify-content-between align-items-center">
                 <span><i class="bi bi-clock-history me-2"></i>Son Eklenen Ürünler</span>
                 <a href="{{ route('admin.product.index') }}" class="btn btn-sm btn-outline-primary">Tümü</a>
@@ -111,7 +111,7 @@
 
     {{-- Kritik Stok Uyarıları --}}
     <div class="col-lg-5">
-        <div class="admin-card">
+        <div class="card shadow-sm border-0">
             <div class="card-header">
                 <i class="bi bi-exclamation-triangle-fill text-warning me-2"></i>Kritik Stok Uyarıları
             </div>
@@ -138,7 +138,7 @@
         </div>
 
         {{-- Hızlı Erişim --}}
-        <div class="admin-card mt-4 p-4">
+        <div class="card shadow-sm border-0 mt-4 p-4">
             <h6 class="fw-bold text-muted text-uppercase small mb-3">Hızlı Erişim</h6>
             <div class="d-grid gap-2">
                 <a href="{{ route('admin.product.create') }}" class="btn btn-outline-primary btn-sm text-start">
