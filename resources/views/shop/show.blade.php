@@ -5,121 +5,136 @@
 <div class="container py-5">
 
     {{-- Breadcrumb --}}
-    <nav aria-label="breadcrumb" class="mb-4">
-        <ol class="breadcrumb">
-            <li class="breadcrumb-item"><a href="{{ route('shop.index') }}">Anasayfa</a></li>
+    <nav aria-label="breadcrumb" class="mb-5">
+        <ol class="breadcrumb fw-medium">
+            <li class="breadcrumb-item"><a href="{{ route('shop.index') }}" class="text-decoration-none text-muted">Anasayfa</a></li>
             @if($product->category)
                 <li class="breadcrumb-item">
-                    <a href="{{ route('shop.category', $product->category) }}">{{ $product->category->name }}</a>
+                    <a href="{{ route('shop.category', $product->category) }}" class="text-decoration-none text-muted">{{ $product->category->name }}</a>
                 </li>
             @endif
-            <li class="breadcrumb-item active">{{ $product->title }}</li>
+            <li class="breadcrumb-item active text-primary">{{ Str::limit($product->title, 30) }}</li>
         </ol>
     </nav>
 
-    <div class="row g-5">
+    <div class="row g-5 align-items-center mb-5 u-animate-slide-up">
 
         {{-- Görsel --}}
         <div class="col-md-5">
-            @if($product->image)
-                <img src="{{ asset('storage/'.$product->image) }}" alt="{{ $product->title }}"
-                     class="img-fluid rounded-4 shadow-sm w-100" style="max-height:420px; object-fit:contain;">
-            @else
-                <div class="d-flex align-items-center justify-content-center bg-light rounded-4"
-                     style="height:350px; font-size:5rem;">🛍️</div>
-            @endif
+            <div class="position-relative">
+                @if($product->image)
+                    <img src="{{ asset('storage/'.$product->image) }}" alt="{{ $product->title }}"
+                         class="img-fluid rounded-4 w-100" style="max-height:500px; object-fit:contain; background: var(--bg-surface); box-shadow: var(--card-shadow);">
+                @else
+                    <div class="d-flex align-items-center justify-content-center rounded-4"
+                         style="height:450px; font-size:6rem; background: var(--bg-surface); color: #cbd5e1; box-shadow: var(--card-shadow);">🛍️</div>
+                @endif
+                @if($product->discount > 0)
+                    <span class="position-absolute top-0 start-0 m-4 badge bg-danger fs-6 px-3 py-2 rounded-pill shadow-sm">
+                        -%{{ $product->discount }} İndirim
+                    </span>
+                @endif
+            </div>
         </div>
 
         {{-- Bilgi --}}
-        <div class="col-md-7">
-            <p class="text-primary fw-semibold small mb-1">{{ $product->category?->full_path }}</p>
-            <h1 class="fw-bold mb-2">{{ $product->title }}</h1>
+        <div class="col-md-7 ps-md-5">
+            <p class="text-primary fw-semibold small mb-2 text-uppercase tracking-wider" style="letter-spacing:1px;">{{ $product->category?->full_path }}</p>
+            <h1 class="display-5 fw-bold mb-3" style="letter-spacing: -1px;">{{ $product->title }}</h1>
 
             @if($product->description)
-                <p class="text-muted mb-4">{{ $product->description }}</p>
+                <p class="text-muted mb-4 fs-5" style="line-height: 1.6;">{{ $product->description }}</p>
             @endif
 
             {{-- Fiyat --}}
             <div class="mb-4">
                 @if($product->discount > 0)
-                    <div class="d-flex align-items-baseline gap-2">
-                        <span class="fs-2 fw-bold text-danger">
+                    <div class="d-flex align-items-baseline gap-3">
+                        <span class="display-4 fw-bold text-danger">
                             {{ number_format($product->discounted_price, 2, ',', '.') }} ₺
                         </span>
-                        <span class="text-muted text-decoration-line-through fs-5">
+                        <span class="text-muted text-decoration-line-through fs-4">
                             {{ number_format($product->price, 2, ',', '.') }} ₺
                         </span>
-                        <span class="badge bg-danger">%{{ $product->discount }} İndirim</span>
                     </div>
                 @else
-                    <span class="fs-2 fw-bold">{{ number_format($product->price, 2, ',', '.') }} ₺</span>
+                    <span class="display-4 fw-bold">{{ number_format($product->price, 2, ',', '.') }} ₺</span>
                 @endif
             </div>
 
             {{-- Stok --}}
-            <div class="mb-3">
+            <div class="mb-4 d-inline-flex gap-2 align-items-center">
                 @if($product->stock > 0)
-                    <span class="badge bg-success-subtle text-success border border-success-subtle px-3 py-2">
-                        <i class="bi bi-check-circle me-1"></i>Stokta Var ({{ $product->stock }} adet)
+                    <span class="badge rounded-pill bg-success-subtle text-success px-4 py-2 fw-semibold fs-6">
+                        <i class="bi bi-check-circle-fill me-2"></i>Stokta Var ({{ $product->stock }} adet)
                     </span>
                 @else
-                    <span class="badge bg-danger-subtle text-danger border border-danger-subtle px-3 py-2">
-                        <i class="bi bi-x-circle me-1"></i>Stok Tükendi
+                    <span class="badge rounded-pill bg-danger-subtle text-danger px-4 py-2 fw-semibold fs-6">
+                        <i class="bi bi-x-circle-fill me-2"></i>Stok Tükendi
                     </span>
                 @endif
             </div>
 
             {{-- Keywords --}}
             @if($product->keywords)
-                <div class="mb-4">
+                <div class="mb-5 d-flex flex-wrap gap-2">
                     @foreach(explode(',', $product->keywords) as $kw)
-                        <span class="badge bg-light text-muted border me-1">{{ trim($kw) }}</span>
+                        <span class="badge bg-body-tertiary text-muted border px-3 py-2 rounded-pill fw-normal">{{ trim($kw) }}</span>
                     @endforeach
                 </div>
             @endif
 
-            <hr>
-            <div class="d-flex gap-2 mt-4">
-                <form action="{{ route('shop.cart.add', $product) }}" method="POST">
+            <hr class="opacity-10 mb-4">
+            
+            <div class="d-flex gap-3">
+                <form action="{{ route('shop.cart.add', $product) }}" method="POST" class="flex-grow-1">
                     @csrf
-                    <button type="submit" class="btn btn-primary px-4 fw-bold shadow-sm" {{ $product->stock <= 0 ? 'disabled' : '' }}>
-                        <i class="bi bi-cart-plus me-1"></i> Sepete Ekle
+                    <button type="submit" class="btn btn-primary btn-lg w-100 rounded-pill fw-bold shadow-sm" {{ $product->stock <= 0 ? 'disabled' : '' }} style="padding: 1rem;">
+                        <i class="bi bi-bag-plus-fill me-2"></i> Sepete Ekle
                     </button>
                 </form>
-                <a href="{{ route('shop.products') }}" class="btn btn-outline-secondary px-4">
-                    <i class="bi bi-arrow-left me-1"></i> Geri Dön
-                </a>
             </div>
         </div>
     </div>
 
     {{-- Detaylı Açıklama --}}
     @if($product->detail)
-        <div class="mt-5">
-            <h4 class="fw-bold border-bottom pb-2 mb-3">Ürün Detayları</h4>
-            <div class="prose bg-white p-4 rounded-4 border">
-                {!! $product->detail !!}
+        <div class="row mt-5 pt-4">
+            <div class="col-12">
+                <div class="card border-0 rounded-4 p-5" style="background: var(--bg-surface); box-shadow: var(--card-shadow);">
+                    <h3 class="fw-bold mb-4 d-flex align-items-center gap-3">
+                        <i class="bi bi-info-circle-fill text-primary"></i> Ürün Detayları
+                    </h3>
+                    <div class="prose fs-5 text-muted" style="line-height: 1.8;">
+                        {!! $product->detail !!}
+                    </div>
+                </div>
             </div>
         </div>
     @endif
 
     {{-- İlgili Ürünler --}}
     @if($related->count())
-        <div class="mt-5">
-            <h4 class="fw-bold border-bottom pb-2 mb-4">Benzer Ürünler</h4>
-            <div class="row g-3">
+        <div class="mt-5 pt-5">
+            <div class="d-flex align-items-center justify-content-between mb-4">
+                <h3 class="fw-bold mb-0">İlginizi Çekebilir</h3>
+            </div>
+            
+            <div class="row g-4">
                 @foreach($related as $r)
-                <div class="col-sm-6 col-md-3">
+                <div class="col-sm-6 col-md-4 col-lg-3">
                     <a href="{{ route('shop.show', $r) }}" class="text-decoration-none">
-                        <div class="card product-card h-100">
-                            @if($r->image)
-                                <img src="{{ asset('storage/'.$r->image) }}" alt="{{ $r->title }}" class="card-img-top">
-                            @else
-                                <div class="d-flex align-items-center justify-content-center bg-light" style="height:150px; font-size:2.5rem;">🛍️</div>
-                            @endif
-                            <div class="card-body p-3">
-                                <div class="fw-semibold small text-dark">{{ Str::limit($r->title, 40) }}</div>
-                                <div class="text-primary fw-bold mt-1">{{ number_format($r->price, 2, ',', '.') }} ₺</div>
+                        <div class="product-card h-100">
+                            <div class="product-card-img-wrapper">
+                                @if($r->image)
+                                    <img src="{{ asset('storage/'.$r->image) }}" alt="{{ $r->title }}">
+                                @else
+                                    <div class="d-flex align-items-center justify-content-center bg-light" style="height:200px; font-size:3rem; color:#cbd5e1;">🛍️</div>
+                                @endif
+                            </div>
+                            <div class="card-body p-4">
+                                <h6 class="fw-bold mb-2 text-body">{{ Str::limit($r->title, 40) }}</h6>
+                                <div class="price-badge text-primary fs-5 mt-2">{{ number_format($r->price, 2, ',', '.') }} ₺</div>
                             </div>
                         </div>
                     </a>
