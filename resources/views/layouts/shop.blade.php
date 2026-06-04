@@ -6,20 +6,7 @@
     <title>@yield('title', 'Mağaza')</title>
     <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/css/bootstrap.min.css" rel="stylesheet">
     <link href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.11.3/font/bootstrap-icons.min.css" rel="stylesheet">
-    <style>
-        body { font-family: 'Segoe UI', sans-serif; background: #f8fafc; }
-        .navbar { background: #1e293b !important; }
-        .navbar-brand { font-weight: 800; font-size: 1.3rem; color: #fff !important; }
-        .nav-link { color: rgba(255,255,255,0.75) !important; }
-        .nav-link:hover { color: #fff !important; }
-        .product-card { transition: transform 0.2s, box-shadow 0.2s; border: 1px solid #e2e8f0; border-radius: 0.75rem; overflow: hidden; }
-        .product-card:hover { transform: translateY(-4px); box-shadow: 0 12px 30px rgba(0,0,0,0.1); }
-        .product-card img { height: 200px; object-fit: cover; }
-        .price-badge { font-size: 1.1rem; font-weight: 700; color: #1e293b; }
-        .discount-badge { background: #ef4444; color: #fff; font-size: 0.72rem; font-weight: 700; border-radius: 50px; padding: 2px 8px; }
-        footer { background: #1e293b; color: rgba(255,255,255,0.6); }
-        .search-bar { max-width: 360px; }
-    </style>
+    <link href="{{ asset('css/shop.css') }}" rel="stylesheet">
 </head>
 <body>
 
@@ -67,5 +54,6 @@
 
 <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/js/bootstrap.bundle.min.js"></script>
 @stack('scripts')
+<script src="{{ asset('js/app.js') }}"></script>
 </body>
 </html>
