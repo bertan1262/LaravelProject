@@ -11,6 +11,8 @@ class ProductSeeder extends Seeder
 {
     public function run(): void
     {
+        \Illuminate\Support\Facades\Schema::disableForeignKeyConstraints();
+
         // Admin kullanıcı
         $user = User::firstOrCreate(
             ['email' => 'bertan@gmail.com'],
@@ -193,6 +195,8 @@ class ProductSeeder extends Seeder
         foreach ($products as $data) {
             Product::create($data);
         }
+
+        \Illuminate\Support\Facades\Schema::enableForeignKeyConstraints();
 
         $this->command->info('✅ ' . Product::count() . ' ürün ve ' . Category::count() . ' kategori eklendi!');
     }
