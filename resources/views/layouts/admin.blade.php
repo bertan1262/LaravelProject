@@ -10,8 +10,44 @@
     <link href="{{ asset('vendor/bootstrap-icons/bootstrap-icons.min.css') }}" rel="stylesheet">
     <!-- AdminLTE CSS -->
     <link rel="stylesheet" href="{{ asset('vendor/adminlte/css/adminlte.min.css') }}">
+    
+    <!-- Dark Mode Init Script -->
+    <script>
+        const storedTheme = localStorage.getItem('theme') || (window.matchMedia("(prefers-color-scheme: dark)").matches ? "dark" : "light");
+        if (storedTheme) document.documentElement.setAttribute('data-bs-theme', storedTheme);
+    </script>
+    
     <style>
         .app-sidebar .nav-icon { margin-right: 0.5rem; }
+        
+        /* Theme Toggle Button */
+        .btn-theme-toggle {
+            width: 40px;
+            height: 40px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            background: var(--bs-body-bg);
+            border: 1px solid var(--bs-border-color);
+            color: var(--bs-secondary-color);
+            font-size: 1.1rem;
+            transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
+            position: relative;
+            overflow: hidden;
+            padding: 0;
+        }
+        .btn-theme-toggle:hover {
+            background: var(--bs-tertiary-bg);
+            color: var(--bs-primary);
+            border-color: var(--bs-primary);
+        }
+        .btn-theme-toggle .dark-icon, .btn-theme-toggle .light-icon {
+            position: absolute;
+            transition: all 0.3s ease;
+        }
+        .btn-theme-toggle .light-icon { opacity: 0; transform: translateY(20px); }
+        .btn-theme-toggle.is-dark .dark-icon { opacity: 0; transform: translateY(-20px); }
+        .btn-theme-toggle.is-dark .light-icon { opacity: 1; transform: translateY(0); color: #fbbf24; }
     </style>
 </head>
 <body class="layout-fixed sidebar-expand-lg bg-body-tertiary">
@@ -25,6 +61,13 @@
                 </li>
             </ul>
             <ul class="navbar-nav ms-auto align-items-center">
+                <!-- Theme Toggle -->
+                <li class="nav-item me-3">
+                    <button class="btn btn-theme-toggle rounded-circle" id="themeToggleBtn" aria-label="Toggle Theme">
+                        <i class="bi bi-moon-stars-fill dark-icon"></i>
+                        <i class="bi bi-sun-fill light-icon"></i>
+                    </button>
+                </li>
                 <li class="nav-item me-3">
                     <span class="text-muted d-flex align-items-center"><i class="bi bi-person-circle fs-5 me-2"></i> {{ auth()->user()?->name ?? 'Admin' }}</span>
                 </li>
@@ -160,6 +203,31 @@
 
 <script src="{{ asset('vendor/bootstrap/bootstrap.bundle.min.js') }}"></script>
 <script src="{{ asset('vendor/adminlte/js/adminlte.min.js') }}"></script>
+<script>
+    // Theme Toggle Logic
+    document.addEventListener('DOMContentLoaded', () => {
+        const toggleBtn = document.getElementById('themeToggleBtn');
+        const htmlElement = document.documentElement;
+        
+        // Update icon based on current theme
+        const updateIcon = () => {
+            if (htmlElement.getAttribute('data-bs-theme') === 'dark') {
+                toggleBtn.classList.add('is-dark');
+            } else {
+                toggleBtn.classList.remove('is-dark');
+            }
+        };
+        updateIcon();
+
+        toggleBtn.addEventListener('click', () => {
+            const currentTheme = htmlElement.getAttribute('data-bs-theme');
+            const newTheme = currentTheme === 'dark' ? 'light' : 'dark';
+            htmlElement.setAttribute('data-bs-theme', newTheme);
+            localStorage.setItem('theme', newTheme);
+            updateIcon();
+        });
+    });
+</script>
 
 @stack('scripts')
 </body>
