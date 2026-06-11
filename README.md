@@ -15,6 +15,10 @@ This is a web application project built for a school homework assignment, utiliz
 - **Product Management:** Full CRUD capabilities with image uploading and CKEditor 5 rich text descriptions.
 - **Category Management:** Unlimited depth parent/child category hierarchy.
 - **Authentication:** Custom Admin Middleware to protect backend routes.
+- **Shopping Cart:** Add products to cart, update quantities, and calculate order totals.
+- **Order System:** Seamless checkout process for customers to place orders.
+- **Order Management:** Admin dashboard capabilities to view, process, and track customer orders.
+
 
 ## 📋 Prerequisites
 Before you begin, ensure you have the following installed on your machine:
