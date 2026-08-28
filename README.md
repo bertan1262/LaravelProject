@@ -1,5 +1,7 @@
 # School Homework Project
 
+
+
 This is a web application project built for a school homework assignment, utilizing the powerful PHP framework Laravel. It features a fully custom-built Admin Panel and a Public E-Commerce storefront.
 
 ## 🚀 Tech Stack
